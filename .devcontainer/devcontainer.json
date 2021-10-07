@@ -1,0 +1,31 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.112.0/containers/cpp
+{
+  "name": "Development environment for jupyter notebooks.",
+  "dockerComposeFile": "docker-compose.yml",
+
+  "service": "notebooks",
+  "runServices":["notebooks"],
+  "mounts": ["source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached"],
+  "workspaceFolder": "/home/vscode/workspace",
+  "shutdownAction": "stopCompose",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.shell.linux": "/usr/bin/fish"
+  },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+      "ms-python.python",
+      "ms-azuretools.vscode-docker",
+      "fudd.toggle-zen-mode",
+      "ms-python.vscode-pylance"
+    ],
+    "forwardPorts": [
+      8866
+    ],
+    "postCreateCommand": [
+      "whoami"
+    ],
+    // non-root user that will be used inside the container
+    "remoteUser": "vscode"
+  }

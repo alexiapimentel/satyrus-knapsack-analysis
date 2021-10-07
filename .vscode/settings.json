@@ -1,0 +1,23 @@
+{
+    "extensions.ignoreRecommendations": false,
+    "[dockerfile]": {
+        "editor.formatOnSave": false
+    },
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 180,
+    "editor.wrappingIndent": "indent",
+    "files.trimTrailingWhitespace": true,
+    "python.linting.flake8Enabled": true,
+    "python.testing.pytestEnabled": false,
+    "python.testing.pytestArgs": [],
+    "python.linting.flake8Args": [
+        "--max-line-length=200"
+    ],
+    "jupyter.alwaysTrustNotebooks": true,
+    "jupyter.jupyterServerType": "local",
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.testing.promptToConfigure": false,
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false
+}

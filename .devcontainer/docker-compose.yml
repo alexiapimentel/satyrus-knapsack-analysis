@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  notebooks:
+    build:
+      context: ..
+      dockerfile: ./.devcontainer/Dockerfile
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - 8866:8866
+    volumes:
+      - ..:/home/vscode/workspace:cached
+    environment:
+      - PYTHONPATH=.
