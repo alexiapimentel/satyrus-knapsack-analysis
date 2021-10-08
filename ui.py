@@ -12,6 +12,7 @@ st.sidebar.header('Parametrização do Problema')
 json_solution = st.sidebar.file_uploader('Solução em JSON')
 n_items = st.sidebar.number_input('Número de Itens', step=1)
 knapsack_capacity = st.sidebar.number_input('Capacidade da(s) Mochila(s)', step=1)
+expected_carried_value = st.sidebar.number_input('Valor Esperado para Função Objetivo', step=1)
 st.sidebar.markdown('* Adicione todos os itens antes de parametrizar o peso!')
 
 if n_items > 0:
@@ -20,11 +21,23 @@ if n_items > 0:
     editable_weights = AgGrid(item_weights, editable=True, height=75)
     weights = utils.transform_weights(editable_weights['data'])
 
+    st.markdown('<br>', unsafe_allow_html=True)
+    st.markdown('<h6 align=left><u>Parametrização do valor dos itens</u></h6><br>', unsafe_allow_html=True)
+    item_values = utils.build_item_values(n_items)
+    editable_values = AgGrid(item_values, editable=True, height=75, key="editable_values")
+    i_values = utils.transform_values(editable_values['data'])
+
     analyse_btn = st.button('Analisar Resultados')
 
     if analyse_btn:
+        st.markdown('<br>', unsafe_allow_html=True)
+
         KA_inst = KA(json_solution, knapsack_capacity, weights)
         knapsack_configuration = KA_inst.knapsack_results()
+
+        carried_value = KA_inst.check_carried_value(i_values)
+        st.markdown(f'<h6 align=left>Valor Levado: {carried_value}</h6>', unsafe_allow_html=True)
+        utils.check_carried_value(carried_value, expected_carried_value)
 
         st.markdown('<br>', unsafe_allow_html=True)
         with st.expander('Configuração da Mochila', expanded=True):

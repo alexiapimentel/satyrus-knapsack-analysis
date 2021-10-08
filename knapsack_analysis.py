@@ -91,3 +91,10 @@ class KnapsackAnalysis:
         all_blocks.rename(columns={'item': 'Item', 'slots': 'Número de blocos levados', 'weight': ' Peso Esperado'}, inplace=True)
 
         return self._check_constraint_violation(all_blocks, 'de todos os slots do item serem carregados')
+
+    def check_carried_value(self, item_values: pd.DataFrame) -> int:
+        all_blocks = self.knapsack_configuration.groupby(by='item')['slot'].count().reset_index()
+        all_blocks = pd.merge(all_blocks, self.weights, on='item')
+        all_blocks = all_blocks.merge(item_values, on='item')
+
+        return all_blocks['value'].sum()
